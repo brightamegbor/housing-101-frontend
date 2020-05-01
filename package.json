@@ -1,14 +1,30 @@
 {
+  "proxy": "http://localhost:8000/api",
   "name": "newreact",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.9.0",
+    "@material-ui/core": "^4.9.8",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.47",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "axios": "^0.19.2",
+    "bootstrap": "^4.3.1",
+    "eslint": "^6.8.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-react": "^7.19.0",
+    "history": "^4.10.1",
+    "jquery": "^3.4.1",
     "react": "^16.13.0",
+    "react-bootstrap": "^1.0.0",
     "react-dom": "^16.13.0",
+    "react-reactive-form": "^1.0.32",
+    "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0"
+    
   },
   "scripts": {
     "start": "react-scripts start",

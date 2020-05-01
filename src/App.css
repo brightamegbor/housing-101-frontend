@@ -36,3 +36,113 @@
     transform: rotate(360deg);
   }
 }
+
+.dropdown-toggle:after {
+  display: none;
+ }
+ 
+ .socials {
+   display: flex !important;
+   /* width: 200px; */
+ }
+
+ .footer {
+    font-size: small;
+   text-align: center;
+ }
+
+ .footer a {
+   text-decoration: none;
+   color: #282c34;
+ }
+
+ .footer a:hover {
+   text-decoration: none;
+ }
+
+ .youtube-icon:hover {
+   color: red;
+ }
+
+ .feedbackbtn {
+   width: 50px;
+   height: 50px;
+ }
+
+ .font-small {
+   font-size: x-small;
+ }
+
+ .pull-right {
+   font-size: small !important;
+   padding: .15rem 1rem !important;
+   display: flex !important;
+   flex-direction: row !important;
+ }
+
+ .addProp {
+  font-size: medium !important;
+  padding: 0 1rem !important;
+ }
+
+ .propbtn {
+  background-color: rgb(40, 44, 52) !important;
+  border-radius: 5rem !important;
+  color: #fff !important;
+  align-items: center !important;
+  margin-bottom: 0 !important;
+  padding: 0.25rem 1rem;
+ }
+
+ .dashboard-link span {
+   font-weight: 600 !important;
+ }
+
+ .no-apartment-icon svg {
+  font-size: 12rem !important;
+  color: #d5d9dc !important;
+ }
+
+ .profile-image {
+    border: 3px solid black !important;
+    /* transform: scale(0.3, 0.4); */
+    object-fit: none;
+    margin: 0 !important;
+    padding: 0 !important;
+ }
+
+ .proContainer {
+   position: relative;
+   top: -3rem;
+   left: 2rem;
+ }
+
+ .editbtn {
+  width: 100px !important;
+  height: 30px;
+  border: 1px solid;
+  background: none;
+  color: #282c34;
+  padding: 5px;
+  margin: 10px;
+  border-radius: 20px;
+  font-weight: 600;
+ }
+
+ .editbtn:hover {
+   background: #282c34;
+   color: #fff;
+ }
+
+ .custom-username {
+   font-weight: 700;
+   margin-left: 0.5rem;
+ }
+
+ .logout-btn {
+    margin-top: 2rem !important;
+    padding: 10px !important;
+    height: 3rem !important;
+    width: 100%;
+    border-radius: 5rem !important;
+ }
