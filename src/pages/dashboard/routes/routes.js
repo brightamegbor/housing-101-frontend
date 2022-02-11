@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Dashboardindex from '../dashboard';
 import dMessages from '../d-message';
 import dashboardProperties from '../properties';
@@ -12,7 +12,7 @@ import userProfile from '../../userProfile';
 
 export default function DashboardRoutes() {
     return (
-        <Switch>
+        <Routes>
             <Route path="/dashboard" exact component={Dashboardindex} />
             <Route path="/dashboard/properties" component={dashboardProperties} />
             <Route path="/dashboard/others" component={Others} />
@@ -26,6 +26,6 @@ export default function DashboardRoutes() {
 
             {/* redirect if route does not exist and user not authenticated */}
             <Route component={Dashboardindex} />
-        </Switch>
+        </Routes>
     )
 }

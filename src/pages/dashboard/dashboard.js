@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import ApartmentIcon from '@material-ui/icons/Apartment';
+import ApartmentIcon from '@mui/icons-material/Apartment';
 
 
 class Dashboardindex extends Component {

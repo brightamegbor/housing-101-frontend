@@ -1,23 +1,27 @@
 import React, { Component, Fragment } from 'react'
-import ApartmentIcon from '@material-ui/icons/Apartment';
+import ApartmentIcon from '@mui/icons-material/Apartment';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import Check from '@material-ui/icons/Check';
-import SettingsIcon from '@material-ui/icons/Settings';
-import PhotoIcon from '@material-ui/icons/Photo';
-import StepConnector from '@material-ui/core/StepConnector';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import ToggleButton from '@material-ui/lab/ToggleButton';
-import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
+// import { makeStyles, withStyles } from '@mui/material/styles';
+
+import { makeStyles, withStyles  } from '@mui/styles';
+// import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import Check from '@mui/icons-material/Check';
+import SettingsIcon from '@mui/icons-material/Settings';
+import PhotoIcon from '@mui/icons-material/Photo';
+import StepConnector from '@mui/material/StepConnector';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import './addprop.css';
 import { Form, InputGroup } from 'react-bootstrap';
-import { TextField, Input } from '@material-ui/core';
-import ImageIcon from '@material-ui/icons/Image';
+import { TextField, Input } from '@mui/material';
+import ImageIcon from '@mui/icons-material/Image';
 
 const QontoConnector = withStyles({
     alternativeLabel: {

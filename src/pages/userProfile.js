@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-import { Card, Container, Row, Col, Form, InputGroup } from 'react-bootstrap';
+import { Card, Container, Row, Col, Form, InputGroup, FormControl } from 'react-bootstrap';
 import axios from 'axios';
 import { FormBuilder,
     FieldGroup,
     FieldControl,
     Validators } from 'react-reactive-form';
-import { Button, Typography, makeStyles, Modal, Fade } from '@material-ui/core';
+import { Button, Typography, Modal, Fade } from '@mui/material';
+import { makeStyles  } from '@mui/styles';
 import PropTypes from 'prop-types';
-import Backdrop from '@material-ui/core/Backdrop';
+import Backdrop from '@mui/material/Backdrop';
 import $ from 'jquery';
+import bannerImg from '../assets/img/banner-home.jpg';
+import apartmentImg from '../assets/img/add-apartment.png';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -25,15 +28,6 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2, 4, 3),
     },
 }));
-
-const TextInput = ({ handler, touched, hasError, meta }) => (
-    
-    <Form.Control
-       type={`${meta.name}`} 
-       placeholder={`Enter ${meta.label}`}
-       {...handler()} />
-
-)
 
 
 class userProfile extends Component {
@@ -126,14 +120,10 @@ class userProfile extends Component {
         window.location = "/";
       };
 
-      updateProfileForm = FormBuilder.group({
-        // id: [],
-        name: [""],
-        location: [""],
-        phone_number: ["", Validators.required],
-    });
+      updateProfileForm = FormBuilder.group({});
 
     modalProfile = () => {
+        // console.log(this.state.userDetails.name);
         const classes = useStyles();
         const [open, setOpen] = React.useState(false);
 
@@ -144,6 +134,10 @@ class userProfile extends Component {
         const handleClose = () => {
             setOpen(false);
         };
+
+        const handleUpdate = () => {
+            console.log("hey");
+        }
 
         return (
             <div>
@@ -173,8 +167,8 @@ class userProfile extends Component {
 
                             <FieldGroup id="transition-modal-description"
                             control={this.updateProfileForm}
-                            render={({ get, invalid }) => (
-                            <Form action="" onSubmit={this.handleRegister} method="post">
+                            render={({ get, invalid, reset, value }) => (
+                            <Form action="" onSubmit={this.handleUpdate} method="post">
                                 <Form.Group>
                                     <InputGroup>
                                         <InputGroup.Prepend>
@@ -182,11 +176,16 @@ class userProfile extends Component {
                                                 <i className="fas fa-user"></i>
                                             </InputGroup.Text>
                                         </InputGroup.Prepend>
-                                        <FieldControl 
-                                        render={TextInput}
-                                        meta={{ label: "Full name", name: "Full name" }}
-                                        id="name"
-                                        name="name" />
+                                        <FieldControl
+                                        name="name"
+                                        options={{ validators: Validators.required }}
+                                        render={({ handler, touched, hasError }) => (
+                                            <FormControl
+                                            id="name"
+                                            type="text"
+                                            placeholder="Enter name"
+                                            value="hi" />
+                                        )} />
                                     </InputGroup>
                                 </Form.Group>
 
@@ -197,11 +196,17 @@ class userProfile extends Component {
                                                 <i className="fas fa-phone-alt"></i>
                                             </InputGroup.Text>
                                         </InputGroup.Prepend>
-                                        <FieldControl 
-                                        render={TextInput}
-                                        meta={{ label: "Phone", name: "phone" }}
-                                        id="phone_number"
-                                        name="phone_number" />
+                                        <FieldControl
+                                        name="phone_number"
+                                        value="hey"
+                                        type="Tel"
+                                        options={{ validators: Validators.required }}
+                                        render={({ handler, touched, hasError }) => (
+                                            <Form.Control
+                                            id="name"
+                                            placeholder="Enter phone"
+                                             />
+                                        )} />
                                     </InputGroup>
                                 </Form.Group>
     
@@ -212,15 +217,23 @@ class userProfile extends Component {
                                                 <i className="fas fa-location-arrow"></i>
                                             </InputGroup.Text>
                                         </InputGroup.Prepend>
-                                    <FieldControl  
-                                    render={TextInput}
-                                    meta={{ label: "Location", name: "location"  }}
-                                    id="location"
-                                    name="location" />
+                                        <FieldControl
+                                        name="location"
+                                        value={this.state.userDetails.location}
+                                        type="text"
+                                        options={{ validators: Validators.required }}
+                                        render={({ handler, touched, hasError }) => (
+                                            <Form.Control
+                                            id="name"
+                                            placeholder="Enter location"
+                                            {...handler()} />
+                                        )} />
+                                    
+                                         
                                     </InputGroup>
                                 </Form.Group>
     
-                                <Button variant="primary" variant="outlined" type="submit"
+                                <Button variant="outlined" type="submit"
                                 id="email-register-btn" className="mt-3 mx-auto">
                                     Update Profile
                                 </Button>
@@ -242,13 +255,13 @@ class userProfile extends Component {
             <div>
                 <Card className="mt-0 pt-0">
                     <Card.Header>
-                    <img src="/img/banner-home.jpg" width="100%" height="160px" />
+                    <img src={bannerImg} width="100%" height="160px" />
 
                     <div className="row">
 
                         <div className="col-sm-12 col-md-9 col-lg-9 proContainer">
                             <img className="rounded-circle profile-image" 
-                            src="/img/add-apartment.png" width="120px" height="120px" 
+                            src={apartmentImg} width="120px" height="120px" 
                             />
 
                             <Typography variant="subtitle1" className="mt-2 custom-username">

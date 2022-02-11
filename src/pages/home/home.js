@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import './home.css';
-import { Card, Container, Row, Col } from 'react-bootstrap';
+import { Card, Container, Row, Col, Button } from 'react-bootstrap';
+import CreateAccountImg from "../../assets/img/create-account.png";
+import StudentSearchImg from "../../assets/img/student-search.jpg";
+import ReservedImg from "../../assets/img/reserved.png";
+import ApartmentImg from "../../assets/img/activate-apartment.png";
+import AddApartmentImg from "../../assets/img/add-apartment.png";
+import { Link } from 'react-router-dom';
 
 class Home extends Component {
     componentDidMount() {
@@ -53,15 +59,14 @@ class Home extends Component {
                             <p className="text-wrap text-white">Why wait to come to school before
                                 looking for a place to stay.
                                 Housing 247 is here to help you find
-                                your dream apartment for your 
-                                accomodation on campus
+                                your dream apartment
                             </p>
                             
-                            <button type="button" className="btn btn-warning rounded-pill">
-                                <a href="/register" className="text-white text-decoration-none">
+                            <Button type="button" className="btn btn-warning rounded-pill">
+                                <Link to="/register" className="text-white text-decoration-none">
                                     Create account now
-                                </a>
-                            </button>
+                                </Link>
+                            </Button>
                         </div>
                     </div>
                 </div>
@@ -81,16 +86,16 @@ class Home extends Component {
                             <Card className="text-center mb-3">
                                 <Card.Header>1. Create an account</Card.Header>
                                 <Card.Body>
-                                    <Card.Img variant="top" src="/img/create-account.png" />
+                                    <Card.Img variant="top" src={CreateAccountImg} />
                                     
                                     <button type="button" className="btn btn-primary rounded">
-                                        <a href="/register" className="text-white text-decoration-none">
+                                        <Link to="/register" className="text-white text-decoration-none">
                                             Sign up
-                                        </a>
+                                        </Link>
                                     </button>
                                 </Card.Body>
                                 <Card.Footer className="text-muted">
-                                    It`&apos;`s actually free to create an account
+                                    It&apos;s actually free to create an account
                                 </Card.Footer>
                             </Card>
                         </Col>
@@ -99,7 +104,7 @@ class Home extends Component {
                             <Card className="text-center mb-3">
                                 <Card.Header>2. Search for an apartment</Card.Header>
                                 <Card.Body>
-                                    <Card.Img variant="top" src="/img/student-search.jpg" />
+                                    <Card.Img variant="top" src={StudentSearchImg} />
                                 </Card.Body>
                                 <Card.Footer className="text-muted">
                                     Search for apartments based on location and price
@@ -111,7 +116,7 @@ class Home extends Component {
                             <Card className="text-center mb-3">
                                 <Card.Header>3. Reserved your apartment</Card.Header>
                                 <Card.Body>
-                                    <Card.Img variant="top" src="/img/reserved.png" />
+                                    <Card.Img variant="top" src={ReservedImg}/>
                                 </Card.Body>
                                 <Card.Footer className="text-muted">
                                     Contact the lessor and arrange for reservation awaiting your arrival
@@ -127,7 +132,7 @@ class Home extends Component {
                             <Card className="text-center mb-3">
                                 <Card.Header>1. Create an account</Card.Header>
                                 <Card.Body>
-                                    <Card.Img variant="top" src="/img/create-account.png" />
+                                    <Card.Img variant="top" src={CreateAccountImg} />
                                     <button type="button" className="btn btn-primary rounded">
                                         <a href="/register" className="text-white text-decoration-none">
                                             Sign up
@@ -135,7 +140,7 @@ class Home extends Component {
                                     </button>
                                 </Card.Body>
                                 <Card.Footer className="text-muted">
-                                    It`&apos;`s actually free to create an account
+                                    It&apos;s actually free to create an account
                                 </Card.Footer>
                             </Card>
                         </Col>
@@ -144,7 +149,7 @@ class Home extends Component {
                             <Card className="text-center mb-3">
                                 <Card.Header>2. Add your apartment</Card.Header>
                                 <Card.Body>
-                                    <Card.Img variant="top" src="/img/add-apartment.png" />
+                                    <Card.Img variant="top" src={AddApartmentImg} />
                                 </Card.Body>
                                 <Card.Footer className="text-muted">
                                     Add your apartment listing, including location and other details
@@ -156,7 +161,7 @@ class Home extends Component {
                             <Card className="text-center mb-3">
                                 <Card.Header>3. Activate your listing</Card.Header>
                                 <Card.Body>
-                                    <Card.Img variant="top" src="/img/activate-apartment.png" />
+                                    <Card.Img variant="top" src={ApartmentImg} />
                                 </Card.Body>
                                 <Card.Footer className="text-muted">
                                     Wait for approval and your apartment will be live in no time

@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import { Card, Form, Button, InputGroup } from 'react-bootstrap';
+import React, {useEffect} from 'react';
+import { Card, Form, InputGroup } from 'react-bootstrap';
 import $ from 'jquery';
 import axios from 'axios';
 import {
@@ -8,9 +8,9 @@ import {
     FieldControl,
     Validators
 } from 'react-reactive-form';
-
-
-
+import PropTypes from "prop-types";
+import { useForm } from "react-hook-form";
+import { Button } from '@mui/material';
 
 // const LogIn = ({ history, loginUser = f => f }) => {
 
@@ -105,34 +105,45 @@ import {
 //         </div>
 //     );
 // }
+
+
 const TextInput = ({ handler, touched, hasError, meta }) => (
     
          <Form.Control
             type={`${meta.name}`} 
             placeholder={`Enter ${meta.label}`}
-            {...handler()} />
+            {...handler} />
     
 )
 
 
-class LogIn extends Component {
-    constructor(props){
-        super(props);
+TextInput.propTypes = {
+    handler: PropTypes.any,
+    touched: PropTypes.any, 
+    hasError: PropTypes.any, 
+    meta: PropTypes.any,
+};
+
+
+function LogIn() {
+    // constructor(props){
+    //     super(props);
     
-        this.state = {
-          isLoggedIn: false,
-          user: {}
-        };
-      }
+    //     this.state = {
+    //       isLoggedIn: false,
+    //       user: {}
+    //     };
+    //   }
+    const { register: login, handleSubmit, watch, formState: { errors } } = useForm();
       
 
-    loginForm = FormBuilder.group({
-        email: ["", Validators.required],
-        password: ["", Validators.required],
-        // rememberMe: false
-    });
+    // loginForm = FormBuilder.group({
+    //     email: ["", Validators.required],
+    //     password: ["", Validators.required],
+    //     // rememberMe: false
+    // });
 
-    _loginUser = (loginFormValue) => {
+    const _loginUser = (loginFormValue) => {
         // let token;
     
         $("#login-form button")
@@ -197,16 +208,16 @@ class LogIn extends Component {
           });
       };
 
-    handleLogin = (e) => {
-        e.preventDefault();
+    const handleLogin = (e) => {
+        // e.preventDefault();
 
-        this._loginUser(this.loginForm.value);
+        this._loginUser(e);
         // console.log(this.loginForm.value);
     };
 
     
     
-    componentDidMount() {
+    useEffect(() => {
         let state = localStorage["appState"];
 
         if (state) {
@@ -224,9 +235,9 @@ class LogIn extends Component {
         navbar.classList.remove("navbar-dark", "bg-dark", "shadow");
         navbar.classList.add("navbar-light", "bg-light", "shadow");
 
-    }
+    });
 
-    render() {
+    // render() {
 
     return (
         <div>
@@ -235,37 +246,29 @@ class LogIn extends Component {
                     <Card.Body>
                         <h5 className="text-center mb-5">Log in</h5>
 
-                        <FieldGroup
-                        control={this.loginForm}
-                        render={({ get, invalid }) => (
-                        <Form id="login-form" action="" onSubmit={this.handleLogin} method="post">
+                        
+                        <Form id="login-form" onSubmit={handleSubmit(handleLogin)} method="post">
 
-                            <Form.Group>
+                            <Form.Group className="mb-4">
                                 <InputGroup>
-                                    <InputGroup.Prepend>
-                                        <InputGroup.Text id="inputGroupPrepend">
-                                            <i className="fas fa-envelope"></i>
-                                        </InputGroup.Text>
-                                    </InputGroup.Prepend>
-                                    <FieldControl
-                                    name="email"
-                                    render={TextInput}
-                                    meta={{ label: "Email", name: "email" }} />
+                                    <InputGroup.Text id="inputGroupPrepend">
+                                        <i className="fas fa-envelope"></i>
+                                    </InputGroup.Text>
+                                    {/* <FieldControl
+                                    {...login("email", {required: true})} */}
+                                    <TextInput handler={{...login("email", {required: true})}} meta={{ label: "Email", name: "email" }} />
+                                    {/* meta={{ label: "Email", name: "email" }} /> */}
                                 </InputGroup>
                             </Form.Group>
                             
 
-                            <Form.Group>
+                            <Form.Group className="mb-4">
                                 <InputGroup>
-                                    <InputGroup.Prepend>
-                                        <InputGroup.Text id="inputGroupPrepend">
-                                            <i className="fas fa-lock"></i>
-                                        </InputGroup.Text>
-                                    </InputGroup.Prepend>
-                                <FieldControl 
-                                name="password" 
-                                render={TextInput}
-                                meta={{ label: "Password", name: "password"  }} />
+                                    <InputGroup.Text id="inputGroupPrepend">
+                                        <i className="fas fa-lock"></i>
+                                    </InputGroup.Text>
+                                
+                                <TextInput handler={{...login("password", {required: true})}} meta={{ label: "Password", name: "password"  }} />
                                 </InputGroup>
                             </Form.Group>
 
@@ -281,16 +284,16 @@ class LogIn extends Component {
                                     </div>
                                 )} /> */}
                             </Form.Group>
-                            <Button 
-                            variant="primary" 
+                            <Button
+                            fullWidth
+                            variant="contained" 
                             type="submit"
                             id="login-form button"
+                            className="text-capitalize"
                             >
                                 Log in
                             </Button>
                         </Form>
-                        )}
-                        />
                     </Card.Body>
                 </Card>
 
@@ -312,14 +315,13 @@ class LogIn extends Component {
                 <p className="mt-5 separator">o</p>
 
                 <p className="text-center">
-                    Don't have an account?
-                    <a className="ml-1" href="/register">Sign up</a>
+                    Don&apos;t have an account? <a className="ml-1" href="/register">Sign up</a>
                 </p>
             </div>
         </div>
     );
 
-    }
+    // }
 }
 
 export default LogIn;
