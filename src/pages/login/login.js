@@ -49,12 +49,12 @@ function LogIn() {
         "<i class='fa fa-spinner fa-spin fa-1x fa-fw'></i><span class='sr-only'>Loading...</span>"
       );
 
+    // console.log(loginFormValue);
     await dispatch(loginUser(loginFormValue));
 
     // axios
     //   .post("/auth/login/", loginFormValue)
     //   .then((response) => {
-    //     console.log(response);
     //     return response;
     //   })
     //   .then((json) => {
@@ -113,10 +113,12 @@ function LogIn() {
       <div className="container mt-5 pt-5 custom-form">
         <Card className="form-shadow">
           <Card.Body>
-            <h5 className="text-center mb-5">Log in</h5>
+            <h5 className="text-center mb-3">Log in</h5>
 
             {loading !== true && loginResponse !== "" && (
-              <div className="text-danger fw-bold">{loginResponse}</div>
+              <div className="text-danger fw-bold mb-4 text-center">
+                {loginResponse}
+              </div>
             )}
 
             <Form
