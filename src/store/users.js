@@ -2,147 +2,218 @@ import { createSlice, current } from "@reduxjs/toolkit";
 import { apiCallBegan } from "./api";
 
 const slice = createSlice({
-  name: "users",
+  name: "rentstate",
   initialState: {
-      list: [],
-      loading: false,
+    list: [],
+    isLoggedIn: false,
+    loading: false,
+    userData: {},
+    loginResponse: "",
   },
 
   reducers: {
-      usersRequested: (users, action) => {
-          users.loading = true;
-      },
+    rentstateRequested: (rentstate) => {
+      rentstate.loading = true;
+    },
 
-      usersReceived: (users, action) => {
-          users.list = users.list.length ? [...users.list, ...action.payload] : action.payload;
-          
-          users.list = users.list.filter((val,id,array) => array.findIndex(va => va.id === val.id) === id);
-          console.log(users.list);
-          users.loading = false;
-      },
+    usersReceived: (users, action) => {
+      users.list = users.list.length
+        ? [...users.list, ...action.payload]
+        : action.payload;
 
-      usersRequestFailed: (users, action) => {
-          users.loading = false;
-      },
+      users.list = users.list.filter(
+        (val, id, array) => array.findIndex((va) => va.id === val.id) === id
+      );
+      console.log(users.list);
+      users.loading = false;
+    },
 
-      updateUsersData: (state, action) => {
+    loggedInSuccess: (rentstate, action) => {
+      const appState = {
+        isLoggedIn: true,
+        userData: action.payload,
+      };
+      // save app state with user date in local storage
+      localStorage["appState"] = JSON.stringify(appState);
 
-        const usersState = current(state);
-        const user = action.user;
-        console.log(usersState);
-        console.log(user.id);
-        const users = usersState.list.filter(u => u.id !== user.id);
+      rentstate.userData = action.payload;
+      rentstate.loading = false;
+      rentstate.isLoggedIn = true;
+    },
 
-        state.list = [
-          ...users,
-          {
-            ...user,
-          }
-        ];
-      },
+    loggedInFailed: (state, action) => {
+      state.loading = false;
+      state.loginResponse = action.payload;
+    },
 
-      addUserData: (state, action) => {
+    checkAuthState: (rentstate) => {
+      const state = localStorage["appState"];
 
-        const usersState = current(state);
-        const user = action.user;
-        const users = usersState.list;
+      if (state) {
+        const AppState = JSON.parse(state);
 
-        state.list = [
-          ...users,
-          {
-            ...user,
-          }
-        ];
-      },
+        if (AppState.isLoggedIn) {
+          rentstate.isLoggedIn = AppState.isLoggedIn;
+        } else {
+          rentstate.isLoggedIn = false;
+        }
+      }
+    },
 
-      removeUserData: (state, action) => {
+    logOutUser: (state) => {
+      localStorage.clear();
 
-        const usersState = current(state);
-        const user = action.user;
-        const users = usersState.list.filter(u => u.id !== user.id);
+      state.isLoggedIn = false;
+    },
 
-        state.list = [
-          ...users
-        ];
-      },
+    usersRequestFailed: (users) => {
+      users.loading = false;
+    },
 
-      sortUserDataById: (state, action) => {
+    updateUsersData: (state, action) => {
+      const usersState = current(state);
+      const user = action.user;
+      console.log(usersState);
+      console.log(user.id);
+      const users = usersState.list.filter((u) => u.id !== user.id);
 
-        const usersState = current(state);
-        const users = usersState.list.concat().sort((a, b) => a.id - b.id);
+      state.list = [
+        ...users,
+        {
+          ...user,
+        },
+      ];
+    },
 
-        state.list = [
-          ...users
-        ];
-      },
+    addUserData: (state, action) => {
+      const usersState = current(state);
+      const user = action.user;
+      const users = usersState.list;
 
-      sortUserDataByUsername: (state, action) => {
+      state.list = [
+        ...users,
+        {
+          ...user,
+        },
+      ];
+    },
 
-        const usersState = current(state);
-        const sortBy = action.by;
-        const users = usersState.list.concat().sort(
-          (a, b) => sortBy === "a-z" ? 
-          a.username.localeCompare(b.username)
-          : b.username.localeCompare(a.username));
+    removeUserData: (state, action) => {
+      const usersState = current(state);
+      const user = action.user;
+      const users = usersState.list.filter((u) => u.id !== user.id);
 
-        state.list = [
-          ...users
-        ];
-      },
+      state.list = [...users];
+    },
+
+    sortUserDataById: (state) => {
+      const usersState = current(state);
+      const users = usersState.list.concat().sort((a, b) => a.id - b.id);
+
+      state.list = [...users];
+    },
+
+    sortUserDataByUsername: (state, action) => {
+      const usersState = current(state);
+      const sortBy = action.by;
+      const users = usersState.list
+        .concat()
+        .sort((a, b) =>
+          sortBy === "a-z"
+            ? a.username.localeCompare(b.username)
+            : b.username.localeCompare(a.username)
+        );
+
+      state.list = [...users];
+    },
   },
 });
 
 export default slice.reducer;
 
-const { usersRequested, usersReceived, usersRequestFailed, 
-  updateUsersData, addUserData, removeUserData, sortUserDataByUsername,
-  sortUserDataById } = slice.actions;
+const {
+  rentstateRequested,
+  usersReceived,
+  usersRequestFailed,
+  updateUsersData,
+  addUserData,
+  removeUserData,
+  sortUserDataByUsername,
+  sortUserDataById,
+  loggedInSuccess,
+  loggedInFailed,
+  checkAuthState,
+  logOutUser,
+} = slice.actions;
 
 const url = "/data";
 
 export const loadUsers = () => (dispatch) => {
   return dispatch(
-      apiCallBegan({
-          url,
-          onStart: usersRequested.type,
-          onSuccess: usersReceived.type,
-          onError: usersRequestFailed.type,
-      })
+    apiCallBegan({
+      url,
+      onStart: rentstateRequested.type,
+      onSuccess: usersReceived.type,
+      onError: usersRequestFailed.type,
+    })
   );
 };
 
+export const loginUser = (data) => (dispatch) => {
+  return dispatch(
+    apiCallBegan({
+      url,
+      data,
+      onStart: rentstateRequested.type,
+      onSuccess: loggedInSuccess.type,
+      onError: loggedInFailed.type,
+    })
+  );
+};
+
+export const checkLoginStatus = () => {
+  return {
+    type: checkAuthState.type,
+  };
+};
+
+export const logOut = () => {
+  return {
+    type: logOutUser.type,
+  };
+};
 
 export const updateUsers = (user) => {
   return {
     type: updateUsersData.type,
-    user
-   }
-}
+    user,
+  };
+};
 
 export const addUser = (user) => {
   return {
     type: addUserData.type,
-    user
-   }
-}
+    user,
+  };
+};
 
 export const removeUser = (user) => {
   return {
     type: removeUserData.type,
-    user
-   }
-}
+    user,
+  };
+};
 
 export const sortUsersbyId = (sortBy) => {
   return {
     type: sortUserDataById.type,
-    by: sortBy
-   }
-}
+    by: sortBy,
+  };
+};
 
 export const sortUsersbyUsername = (sortBy) => {
   return {
     type: sortUserDataByUsername.type,
-    by: sortBy
-   }
-}
+    by: sortBy,
+  };
+};

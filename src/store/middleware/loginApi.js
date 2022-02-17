@@ -1,24 +1,21 @@
 import axios from "axios";
 import * as actions from "../api";
 
-const api =
+const loginApi =
   ({ dispatch }) =>
   (next) =>
   async (action) => {
     if (action.type !== actions.apiCallBegan.type) return next(action);
 
-    const { url, method, data, onStart, onSuccess, onError } = action.payload;
+    const { url, data, onStart, onSuccess, onError } = action.payload;
 
     if (onStart) dispatch({ type: onStart });
 
     next(action);
 
     try {
-      const response = await axios.request({
-        baseURL:
-          "https://my-json-server.typicode.com/karolkproexe/jsonplaceholderdb",
+      const response = await axios.post({
         url,
-        method,
         data,
       });
       // General
@@ -33,4 +30,4 @@ const api =
     }
   };
 
-export default api;
+export default loginApi;

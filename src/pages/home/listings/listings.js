@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import { Card, Container, Row, Col } from 'react-bootstrap';
+import React, { Component } from "react";
 
 class Listings extends Component {
-    componentDidMount() {
+  componentDidMount() {
     var scrollpos = window.scrollY;
     var navbar = document.querySelector("nav");
 
@@ -16,10 +15,10 @@ class Listings extends Component {
       navbar.classList.add("navbar-dark", "bg-dark");
     }
 
-    window.addEventListener('scroll', function(){
+    window.addEventListener("scroll", function () {
       scrollpos = window.scrollY;
 
-      if(scrollpos > 60) {
+      if (scrollpos > 60) {
         add_class_on_scroll();
       } else {
         remove_class_on_scroll();
@@ -27,14 +26,13 @@ class Listings extends Component {
     });
   }
 
-    render() {
-        return (
-            <div>
-               <p>--- Listing goes here ---</p>
-                
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <p>--- Listing goes here ---</p>
+      </div>
+    );
+  }
 }
 
 export default Listings;
