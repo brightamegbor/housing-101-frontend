@@ -1,66 +1,16 @@
 import { useEffect, useState } from "react";
 import { Card, Form, InputGroup } from "react-bootstrap";
-import axios from "axios";
+// import axios from "axios";
 import $ from "jquery";
 import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
 import { Button } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { registerUser } from "store/users";
+import { useDispatch } from "react-redux";
 
 // let $;
-
-function _registerUser(registerFormValue) {
-  $("#email-register-btn")
-    .attr("disabled", "disabled")
-    .html(
-      "<i class='fa fa-spinner fa-spin fa-1x fa-fw'></i><span class='sr-only'>Loading...</span>"
-    );
-
-  // var formData = new FormData();
-  // formData.append("name", name);
-  // formData.append("email", email);
-  // formData.append("password", password);
-  console.log(registerFormValue);
-
-  axios
-    .post("/api/auth/signup", registerFormValue)
-    .then((response) => {
-      console.log(response);
-      return response;
-    })
-    .then((json) => {
-      if (json.status === 201) {
-        alert("Registration Successful!");
-
-        let userData = {
-          name: json.data.name,
-          id: json.data.id,
-          email: json.data.email,
-          auth_token: json.data.token,
-          timestamp: new Date().toString(),
-        };
-        let appState = {
-          isLoggedIn: true,
-          user: userData,
-        };
-        // save app state with user date in local storage
-        localStorage["appState"] = JSON.stringify(appState);
-        this.setState({
-          isLoggedIn: appState.isLoggedIn,
-          user: appState.user,
-        });
-      } else {
-        alert("Registration Failed!");
-        $("#email-register-btn").removeAttr("disabled").html("Register");
-      }
-    })
-    .catch((error) => {
-      alert("An Error Occured!" + error);
-      console.log(`${registerFormValue} ${error}`);
-      $("#email-register-btn").removeAttr("disabled").html("Register");
-    });
-}
 
 const TextInput = ({ handler, meta }) => (
   <Form.Control
@@ -97,6 +47,8 @@ const formSchema = yup
 function SignUp() {
   //   const formOptions = { resolver: yupResolver(formSchema) };
 
+  const dispatch = useDispatch();
+
   const [acceptTerm, setAcceptTerm] = useState(false);
 
   const {
@@ -115,6 +67,59 @@ function SignUp() {
     _registerUser(e);
     // }
   };
+
+  async function _registerUser(registerFormValue) {
+    $("#email-register-btn")
+      .attr("disabled", "disabled")
+      .html(
+        "<i class='fa fa-spinner fa-spin fa-1x fa-fw'></i><span class='sr-only'>Loading...</span>"
+      );
+
+    // var formData = new FormData();
+    // formData.append("name", name);
+    // formData.append("email", email);
+    // formData.append("password", password);
+    // console.log(registerFormValue);
+    await dispatch(registerUser(registerFormValue));
+
+    // axios
+    //   .post("/api/auth/signup", registerFormValue)
+    //   .then((response) => {
+    //     console.log(response);
+    //     return response;
+    //   })
+    //   .then((json) => {
+    //     if (json.status === 201) {
+    //       alert("Registration Successful!");
+
+    //       let userData = {
+    //         name: json.data.name,
+    //         id: json.data.id,
+    //         email: json.data.email,
+    //         auth_token: json.data.token,
+    //         timestamp: new Date().toString(),
+    //       };
+    //       let appState = {
+    //         isLoggedIn: true,
+    //         user: userData,
+    //       };
+    //       // save app state with user date in local storage
+    //       localStorage["appState"] = JSON.stringify(appState);
+    //       this.setState({
+    //         isLoggedIn: appState.isLoggedIn,
+    //         user: appState.user,
+    //       });
+    //     } else {
+    //       alert("Registration Failed!");
+    //       $("#email-register-btn").removeAttr("disabled").html("Register");
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     alert("An Error Occured!" + error);
+    //     console.log(`${registerFormValue} ${error}`);
+    //   });
+    $("#email-register-btn").removeAttr("disabled").html("Register");
+  }
 
   useEffect(() => {
     var navbar = document.querySelector("nav");

@@ -1,5 +1,5 @@
 import { createSlice, current } from "@reduxjs/toolkit";
-import { apiCallBegan, apiLoginCallBegan } from "./api";
+import { apiCallBegan, apiLoginCallBegan, apiRegisterCallBegan } from "./api";
 
 const slice = createSlice({
   name: "rentstate",
@@ -148,6 +148,7 @@ const {
 
 const url = "/data";
 const loginUrl = "/login/";
+const registerUrl = "/signup/";
 
 export const loadUsers = () => (dispatch) => {
   return dispatch(
@@ -164,6 +165,19 @@ export const loginUser = (data) => (dispatch) => {
   return dispatch(
     apiLoginCallBegan({
       url: loginUrl,
+      method: "post",
+      data: data,
+      onStart: rentstateRequested.type,
+      onSuccess: loggedInSuccess.type,
+      onError: loggedInFailed.type,
+    })
+  );
+};
+
+export const registerUser = (data) => (dispatch) => {
+  return dispatch(
+    apiRegisterCallBegan({
+      url: registerUrl,
       method: "post",
       data: data,
       onStart: rentstateRequested.type,

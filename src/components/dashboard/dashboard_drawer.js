@@ -26,6 +26,7 @@ import { checkLoginStatus, logOut } from "store/users";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { SiHomeadvisor } from "react-icons/si";
+import { Box } from "@mui/material";
 
 const drawerWidth = 240;
 
@@ -94,7 +95,7 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-export default function DashboardDrawer() {
+export default function DashboardDrawer(props) {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
@@ -130,7 +131,7 @@ export default function DashboardDrawer() {
   };
 
   return (
-    <>
+    <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar className="navbar-light bg-light">
@@ -154,7 +155,7 @@ export default function DashboardDrawer() {
 
           <div className="pull-right ms-auto">
             <Link
-              to="/dashboard/add-property"
+              to="/dashboard/property/new"
               className="text-decoration-none mt-auto mb-auto"
             >
               <IconButton className="addProp">
@@ -246,6 +247,12 @@ export default function DashboardDrawer() {
           </List>
         </div>
       </Drawer>
-    </>
+      {/* main contents */}
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <DrawerHeader />
+
+        {props.children}
+      </Box>
+    </Box>
   );
 }

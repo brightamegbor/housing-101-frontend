@@ -28,10 +28,10 @@ export default function AllRoutes() {
       <Route path="/dashboard/properties" element={<DashboardProperties />} />
       <Route path="/dashboard/others" element={<Others />} />
       <Route path="/dashboard/messages" element={<DashMessages />} />
-      <Route path="/dashboard/add-property" element={<AddProperty />} />
+      <Route path="/dashboard/property/new" element={<AddProperty />} />
 
       <Route path="/dashbaord/messagesdash" element={<DMessages />} />
-      {/* <Route path="/dashboard/profile" element={<UserProfile />} /> */}
+      <Route path="/dashboard/profile" element={<UserProfile />} />
 
       {/* redirect if route does not exist and user not authenticated */}
       <Route element={<LogIn />} />

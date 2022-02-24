@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Fragment } from "react";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import PropTypes from "prop-types";
 import clsx from "clsx";
@@ -22,6 +22,7 @@ import "./addprop.css";
 import { Form } from "react-bootstrap";
 import { TextField } from "@mui/material";
 import ImageIcon from "@mui/icons-material/Image";
+import DashboardDrawer from "components/dashboard/dashboard_drawer";
 
 // const QontoConnector = withStyles({
 //     alternativeLabel: {
@@ -168,29 +169,28 @@ ColorlibStepIcon.propTypes = {
   icon: PropTypes.node,
 };
 
-const useStyles = makeStyles((theme) => ({
-  toggleContainer: {
-    margin: theme.spacing(2, 2),
-  },
+// const useStyles = makeStyles((theme) => ({
+//   toggleContainer: {
+//     margin: theme.spacing(2, 2),
+//   },
 
-  root: {
-    width: "100%",
-  },
-  button: {
-    marginRight: theme.spacing(1),
-  },
-  instructions: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
-  },
-}));
+//   root: {
+//     width: "100%",
+//   },
+//   button: {
+//     marginRight: theme.spacing(1),
+//   },
+//   instructions: {
+//     marginTop: theme.spacing(1),
+//     marginBottom: theme.spacing(1),
+//   },
+// }));
 
 function getSteps() {
   return ["Property Type", "Property Details", "Upload Photos"];
 }
 
 function StepContent0() {
-  const classes = useStyles();
   const [propertyType, setPropertyType] = React.useState("");
 
   const handlePropertyType = (event, newPropertyType) => {
@@ -228,7 +228,7 @@ function StepContent0() {
       Select your property category that best match
       <Form className="mb-4 pb-4">
         <Grid container>
-          <div className={classes.toggleContainer}>
+          <div className="">
             <ToggleButtonGroup
               value={propertyType}
               exclusive
@@ -265,7 +265,7 @@ function StepContent0() {
 
         <Grid>
           <p className="mt-4">Apartment Type</p>
-          <div className={classes.toggleContainer}>
+          <div className="">
             <ToggleButtonGroup
               value={apartmentType}
               exclusive
@@ -326,7 +326,7 @@ function StepContent0() {
 
         <Grid>
           <p className="mt-4">House Type</p>
-          <div className={classes.toggleContainer}>
+          <div className="">
             <ToggleButtonGroup
               value={houseType}
               exclusive
@@ -359,7 +359,7 @@ function StepContent0() {
 
         <Grid>
           <p className="mt-4">Room Type</p>
-          <div className={classes.toggleContainer}>
+          <div className="">
             <ToggleButtonGroup
               value={roomType}
               exclusive
@@ -438,7 +438,6 @@ function StepContent0() {
 }
 
 function StepContent1() {
-  const classes = useStyles();
   const [propertyType, setPropertyType] = React.useState("");
 
   const handlePropertyType = (event, newPropertyType) => {
@@ -478,7 +477,7 @@ function StepContent1() {
 
         <p className="pt-5">Utilities Available</p>
         <Grid container>
-          <div className={classes.toggleContainer}>
+          <div className="">
             <ToggleButtonGroup
               value={propertyType}
               exclusive
@@ -515,7 +514,7 @@ function StepContent1() {
 
         <Grid>
           <p className="mt-4">Furnished?</p>
-          <div className={classes.toggleContainer}>
+          <div className="">
             <ToggleButtonGroup
               value={apartmentType}
               exclusive
@@ -536,7 +535,7 @@ function StepContent1() {
 
         <Grid>
           <p className="mt-4">Lease Term</p>
-          <div className={classes.toggleContainer}>
+          <div className="">
             <ToggleButtonGroup
               value={houseType}
               exclusive
@@ -569,7 +568,7 @@ function StepContent1() {
 
         <Grid>
           <p className="mt-4">Other Details</p>
-          <div className={classes.toggleContainer}>
+          <div className="">
             <ToggleButtonGroup
               value={roomType}
               exclusive
@@ -602,7 +601,7 @@ function StepContent1() {
 
         <Grid>
           <p className="mt-4">Bathroom Type</p>
-          <div className={classes.toggleContainer}>
+          <div className="">
             <ToggleButtonGroup
               value={roomType}
               exclusive
@@ -744,7 +743,6 @@ function getStepContent(step) {
 }
 
 function CustomizedSteppers() {
-  const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
 
@@ -761,7 +759,7 @@ function CustomizedSteppers() {
   };
 
   return (
-    <div className={classes.root}>
+    <div className="">
       {/* <Stepper alternativeLabel activeStep={activeStep}>
           {steps.map((label) => (
             <Step key={label}>
@@ -792,20 +790,18 @@ function CustomizedSteppers() {
       <div className="container">
         {activeStep === steps.length ? (
           <div>
-            <Button onClick={handleReset} className={classes.button}>
+            <Button onClick={handleReset} className="">
               Reset
             </Button>
           </div>
         ) : (
           <div>
-            <div className={classes.instructions}>
-              {getStepContent(activeStep)}
-            </div>
+            <div className="">{getStepContent(activeStep)}</div>
             <div className="custom-ml-auto">
               <Button
                 disabled={activeStep === 0}
                 onClick={handleBack}
-                className={classes.button}
+                className=""
               >
                 Back
               </Button>
@@ -813,7 +809,7 @@ function CustomizedSteppers() {
                 variant="contained"
                 color="primary"
                 onClick={handleNext}
-                className={classes.button}
+                className=""
               >
                 {activeStep === steps.length - 1 ? "Publish" : "Next"}
               </Button>
@@ -825,10 +821,12 @@ function CustomizedSteppers() {
   );
 }
 
-class addProperty extends Component {
-  render() {
-    return <CustomizedSteppers />;
-  }
+function AddProperty() {
+  return (
+    <DashboardDrawer>
+      <CustomizedSteppers />;
+    </DashboardDrawer>
+  );
 }
 
-export default addProperty;
+export default AddProperty;
