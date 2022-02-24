@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 // import clsx from "clsx";
 // import { styled } from "@mui/material/styles";
 // import DashboardRoutes from "./routes/routes";
@@ -30,11 +30,11 @@ function MiniDrawer() {
 }
 
 function Dashboardhome() {
-  useEffect(() => {
-    var navbar = document.querySelector("nav");
-    navbar.classList.remove("navbar-dark", "bg-dark", "shadow");
-    navbar.classList.add("navbar-light", "bg-light", "shadow");
-  });
+  // useEffect(() => {
+  //   var navbar = document.querySelector("nav");
+  //   navbar.classList.remove("navbar-dark", "bg-dark", "shadow");
+  //   navbar.classList.add("navbar-light", "bg-light", "shadow");
+  // });
 
   return <MiniDrawer />;
 }

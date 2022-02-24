@@ -13,12 +13,11 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import MailIcon from "@mui/icons-material/Mail";
-// import AssignmentIcon from "@mui/icons-material/Assignment";
-import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
-import ApartmentIcon from "@mui/icons-material/Apartment";
-import MessageIcon from "@mui/icons-material/Message";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { RiDraftLine } from "react-icons/ri";
+import { FaRegBuilding } from "react-icons/fa";
+import { IoIosNotificationsOutline } from "react-icons/io";
+import { MdOutlineFavoriteBorder } from "react-icons/md";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import LogoutIcon from "@mui/icons-material/LogoutOutlined";
@@ -155,7 +154,7 @@ export default function DashboardDrawer(props) {
 
           <div className="pull-right ms-auto">
             <Link
-              to="/dashboard/property/new"
+              to="/listings/property/new"
               className="text-decoration-none mt-auto mb-auto"
             >
               <IconButton className="addProp">
@@ -195,8 +194,8 @@ export default function DashboardDrawer(props) {
 
         <List>
           {[
-            { name: "Dashbaord", path: "/dashboard" },
-            { name: "Properties", path: "/dashboard/properties" },
+            { name: "Listings", path: "/listings" },
+            { name: "Drafts", path: "/drafts" },
           ].map((text, index) => (
             <Link
               to={text.path}
@@ -206,9 +205,9 @@ export default function DashboardDrawer(props) {
               <ListItem button selected={text.path === location.pathname}>
                 <ListItemIcon>
                   {index % 2 === 0 ? (
-                    <DashboardOutlinedIcon />
+                    <FaRegBuilding size={20} />
                   ) : (
-                    <ApartmentIcon />
+                    <RiDraftLine size={20} />
                   )}
                 </ListItemIcon>
                 <ListItemText primary={text.name} />
@@ -218,17 +217,24 @@ export default function DashboardDrawer(props) {
         </List>
         <Divider />
         <List>
-          {["Messages", "Others"].map((text, index) => (
+          {[
+            { name: "Notifications", path: "/notifications" },
+            { name: "Favorites", path: "/favorites" },
+          ].map((text, index) => (
             <Link
-              to={index % 2 === 0 ? "/dashboard/messages" : "/dashboard/others"}
+              to={text.path}
               className=" text-muted text-decoration-none"
-              key={text}
+              key={text.name}
             >
-              <ListItem button>
+              <ListItem button selected={text.path === location.pathname}>
                 <ListItemIcon>
-                  {index % 2 === 0 ? <MessageIcon /> : <MailIcon />}
+                  {index % 2 === 0 ? (
+                    <IoIosNotificationsOutline size={25} />
+                  ) : (
+                    <MdOutlineFavoriteBorder size={25} />
+                  )}
                 </ListItemIcon>
-                <ListItemText className="dashboard-link" primary={text} />
+                <ListItemText className="dashboard-link" primary={text.name} />
               </ListItem>
             </Link>
           ))}

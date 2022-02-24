@@ -100,7 +100,7 @@ function LogIn() {
 
   useEffect(() => {
     if (isLoggedIn === true) {
-      return navigate("/dashboard");
+      return navigate("/listings");
     }
     const navbar = document.querySelector("nav");
     navbar.classList.remove("navbar-dark", "bg-dark", "shadow");
